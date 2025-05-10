@@ -38,16 +38,15 @@ func Get(store *Store) http.HandlerFunc {
 			return
 		}
 
-		value := store.store[key]
-		if _, err := w.Write([]byte(value)); err != nil {
-			slog.Error("Error writing response", "error", err)
-			http.Error(w, "Error writing response", 500)
+		value, ok := store.store[key]
+		if !ok {
+			http.Error(w, fmt.Sprintf("Error missing key: %s", key), 404)
 			return
 		}
 
-		slog.Info("Retrieved", "key", key, "value", value)
+		w.Write([]byte(value))
 
-		w.WriteHeader(200)
+		slog.Info("Retrieved", "key", key, "value", value)
 	}
 }
 
