@@ -88,7 +88,7 @@ func main() {
 		store: make(map[string]string),
 	}
 
-	if err := http.ListenAndServe(":8080", NewServer(store)); err != nil {
+	if err := http.ListenAndServe(":4000", NewServer(store)); err != nil {
 		panic(fmt.Errorf("error starting server: %w", err))
 	}
 }
