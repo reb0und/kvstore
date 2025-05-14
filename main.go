@@ -88,6 +88,7 @@ func main() {
 		store: make(map[string]string),
 	}
 
+// @TODO: Write to file
 	if err := http.ListenAndServe(":4000", NewServer(store)); err != nil {
 		panic(fmt.Errorf("error starting server: %w", err))
 	}
